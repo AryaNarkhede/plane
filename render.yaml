@@ -16,17 +16,17 @@ services:
       - key: REDIS_URL
         fromService:
             name: plane-redis
+            type: redis
             property: connectionString
       - key: SECRET_KEY
         generateValue: true
-    disk:
-      name: plane-media
-      mountPath: /app/media
-      sizeGB: 1
 
   - type: redis
     name: plane-redis
     plan: free
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: Allow all
 
 databases:
   - name: plane-db
